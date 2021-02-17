@@ -30,4 +30,10 @@ public class ChildServiceImpl implements ChildService {
     {
         return childRepository.findById(id).get();
     }
+
+    @Override
+    public List<Child> findAllChildren()
+    {
+        return childRepository.findAll();
+    }
 }

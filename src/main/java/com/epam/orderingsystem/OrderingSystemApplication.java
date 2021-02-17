@@ -26,7 +26,8 @@ public class OrderingSystemApplication {
      * Parse wishes by schedule
      * @throws Exception when exception is thrown
      */
-    @Scheduled(cron = "0 0 2 * * *", zone = "UTC")
+//    @Scheduled(cron = "0 0 2 * * *", zone = "UTC")
+    @Scheduled(fixedDelay = 10000)
     private void parse() throws Exception
     {
         wishProcessor.process(filename);
