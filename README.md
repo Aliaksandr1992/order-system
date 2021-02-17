@@ -13,7 +13,6 @@ To run this project you need to go inside a root directory, open there terminal 
 Yo can use your own xml file with wishes, but it has to have a structure as described below
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
 <wishes>
     <wish>
         <child>
