@@ -11,9 +11,9 @@ public class StaxXmlProcessor implements AutoCloseable{
     private static XMLInputFactory FACTORY = XMLInputFactory.newInstance();
     private XMLStreamReader reader;
 
-    public StaxXmlProcessor(Reader reader1) throws XMLStreamException
+    public StaxXmlProcessor(Reader myReader) throws XMLStreamException
     {
-        reader = FACTORY.createXMLStreamReader(reader1);
+        reader = FACTORY.createXMLStreamReader(myReader);
     }
 
     public XMLStreamReader getReader()
