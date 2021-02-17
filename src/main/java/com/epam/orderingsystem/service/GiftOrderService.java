@@ -21,5 +21,5 @@ public interface GiftOrderService {
      * Find all saved orders
      * @return list of orders
      */
-    List<GiftOrder> findAllOders();
+    List<GiftOrder> findAllOrders();
 }

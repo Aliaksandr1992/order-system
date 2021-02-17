@@ -3,12 +3,11 @@ package com.epam.orderingsystem.processor.impl;
 import com.epam.orderingsystem.model.Child;
 import com.epam.orderingsystem.model.GiftOrder;
 import com.epam.orderingsystem.model.Wish;
-import com.epam.orderingsystem.parser.StaxXmlProcessor;
+import com.epam.orderingsystem.parser.StaxXmlParser;
 import com.epam.orderingsystem.processor.WishProcessor;
 import com.epam.orderingsystem.service.ChildService;
 import com.epam.orderingsystem.service.GiftOrderService;
 import com.epam.orderingsystem.service.WishBuilderService;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -22,8 +21,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class XmlWishProcessor implements WishProcessor {
@@ -45,10 +42,10 @@ public class XmlWishProcessor implements WishProcessor {
     @Override
     public void process(String path) throws Exception
     {
-        try (StaxXmlProcessor staxXmlProcessor = new StaxXmlProcessor(new FileReader(
+        try (StaxXmlParser staxXmlParser = new StaxXmlParser(new FileReader(
                 ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + path)
         ))) {
-            XMLStreamReader reader = staxXmlProcessor.getReader();
+            XMLStreamReader reader = staxXmlParser.getReader();
             List<Child> children = new ArrayList<>();
             List<GiftOrder> orders = new ArrayList<>();
 
@@ -65,6 +62,7 @@ public class XmlWishProcessor implements WishProcessor {
 
     /**
      * Parse xml file and separate each wish
+     *
      * @param reader is xml reader
      * @return list of wishes
      * @throws Exception when exception is thrown
@@ -72,7 +70,7 @@ public class XmlWishProcessor implements WishProcessor {
     private List<Wish> getParsedWishes(XMLStreamReader reader) throws Exception
     {
         List<Wish> result = new ArrayList<>();
-        List<Wish> savedWishes = wishBuilderService.build(childService.findAllChildren(), giftOrderService.findAllOders());
+        List<Wish> savedWishes = wishBuilderService.build(childService.findAllChildren(), giftOrderService.findAllOrders());
         String firstName = null, lastName = null, text = null;
         Long datetime = null;
         while (reader.hasNext()) {

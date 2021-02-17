@@ -26,7 +26,7 @@ public class GiftOrderServiceImpl implements GiftOrderService {
     }
 
     @Override
-    public List<GiftOrder> findAllOders()
+    public List<GiftOrder> findAllOrders()
     {
         return giftOrderRepository.findAll();
     }

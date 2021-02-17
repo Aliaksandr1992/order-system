@@ -1,9 +1,6 @@
 package com.epam.orderingsystem.controller;
 
-import com.epam.orderingsystem.model.Child;
-import com.epam.orderingsystem.model.GiftOrder;
 import com.epam.orderingsystem.model.Wish;
-import com.epam.orderingsystem.processor.WishProcessor;
 import com.epam.orderingsystem.service.ChildService;
 import com.epam.orderingsystem.service.GiftOrderService;
 import com.epam.orderingsystem.service.WishBuilderService;
@@ -13,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,8 +25,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showAllWishes(Model model)
     {
-        List<Wish> wishes = wishBuilderService.build(childService.findAllChildren(), giftOrderService.findAllOders());
-
+        List<Wish> wishes = wishBuilderService.build(childService.findAllChildren(), giftOrderService.findAllOrders());
         model.addAttribute("wishes", wishes);
         return "index";
     }
