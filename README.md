@@ -11,8 +11,6 @@ To run this project you need to go inside a root directory, open there terminal 
 </pre>
 
 Yo can use your own xml file with wishes, but it has to have a structure as described below
-<pre>
-    <code>
     ```xml
         <wishes>
             <wish>
@@ -25,5 +23,3 @@ Yo can use your own xml file with wishes, but it has to have a structure as desc
             </wish>    
         </wishes>
     ```
-    </code>
-</pre>
