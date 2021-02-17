@@ -22,6 +22,10 @@ public class OrderingSystemApplication {
         SpringApplication.run(OrderingSystemApplication.class, args);
     }
 
+    /**
+     * Parse wishes by schedule
+     * @throws Exception when exception is thrown
+     */
     @Scheduled(cron = "0 0 2 * * *", zone = "UTC")
     private void parse() throws Exception
     {

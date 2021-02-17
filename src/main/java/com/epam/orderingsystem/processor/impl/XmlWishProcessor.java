@@ -35,6 +35,7 @@ public class XmlWishProcessor implements WishProcessor {
     @Autowired
     private GiftOrderService giftOrderService;
 
+
     @Override
     public void process(String path) throws Exception
     {
@@ -56,7 +57,13 @@ public class XmlWishProcessor implements WishProcessor {
         }
     }
 
-    public List<Wish> getParsedWishes(XMLStreamReader reader) throws Exception
+    /**
+     * Parse xml file and separate each wish
+     * @param reader is xml reader
+     * @return list of wishes
+     * @throws Exception when exception is thrown
+     */
+    private List<Wish> getParsedWishes(XMLStreamReader reader) throws Exception
     {
         List<Wish> result = new ArrayList<>();
         String firstName = null, lastName = null, text = null;
