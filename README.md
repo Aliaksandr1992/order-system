@@ -6,11 +6,14 @@ Order system is service to process wishes and converting that in orders.
 
 To run this project you need to go inside a root directory, open there terminal and execute the command:
 
-mvn spring-boot:run -Dspring-boot.run.arguments="wishes.filename=wishes.xml"
+<pre>
+    mvn spring-boot:run -Dspring-boot.run.arguments="wishes.filename=wishes.xml"
+</pre>
 
 Yo can use your own xml file with wishes, but it has to have a structure as described below
 <pre>
     <code>
+    ```xml
         <wishes>
             <wish>
                 <child>
@@ -21,5 +24,6 @@ Yo can use your own xml file with wishes, but it has to have a structure as desc
                 <datetime>2018-02-01</datetime>
             </wish>    
         </wishes>
+    ```
     </code>
 </pre>
