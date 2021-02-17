@@ -11,15 +11,17 @@ To run this project you need to go inside a root directory, open there terminal 
 </pre>
 
 Yo can use your own xml file with wishes, but it has to have a structure as described below
-    ```xml
-        <wishes><br/>
-            <wish>
-                <child>
-                    <first-name>John</first-name>
-                    <last-name>Smith</last-name>
-                </child>
-                <text>New car</text>
-                <datetime>2018-02-01</datetime>
-            </wish>    
-        </wishes>
-    ```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<wishes>
+    <wish>
+        <child>
+            <first-name>John</first-name>
+            <last-name>Smith</last-name>
+        </child>
+        <text>New car</text>
+        <datetime>2018-02-01</datetime>
+    </wish>
+</wishes>
+```
