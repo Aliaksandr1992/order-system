@@ -1,0 +1,18 @@
+<wishes>
+    <wish>
+        <child>
+            <first-name>John</first-name>
+            <last-name>Smith</last-name>
+        </child>
+        <text>New car</text>
+        <datetime>2018-02-01</datetime>
+    </wish>
+    <wish>
+        <child>
+            <first-name>Anna</first-name>
+            <last-name>Klein</last-name>
+        </child>
+        <text>Rose dress</text>
+        <datetime>2019-04-15</datetime>
+    </wish>
+</wishes>
