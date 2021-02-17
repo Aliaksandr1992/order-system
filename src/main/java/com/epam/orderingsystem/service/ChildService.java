@@ -23,4 +23,10 @@ public interface ChildService {
      * @return child object
      */
     Child findChildById(Long id);
+
+    /**
+     * Find all children
+     * @return list of children
+     */
+    List<Child> findAllChildren();
 }

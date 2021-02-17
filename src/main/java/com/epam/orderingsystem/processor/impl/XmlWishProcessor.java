@@ -2,10 +2,12 @@ package com.epam.orderingsystem.processor.impl;
 
 import com.epam.orderingsystem.model.Child;
 import com.epam.orderingsystem.model.GiftOrder;
+import com.epam.orderingsystem.model.Wish;
 import com.epam.orderingsystem.parser.StaxXmlProcessor;
 import com.epam.orderingsystem.processor.WishProcessor;
 import com.epam.orderingsystem.service.ChildService;
 import com.epam.orderingsystem.service.GiftOrderService;
+import com.epam.orderingsystem.service.WishBuilderService;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class XmlWishProcessor implements WishProcessor {
@@ -34,6 +38,8 @@ public class XmlWishProcessor implements WishProcessor {
     private ChildService childService;
     @Autowired
     private GiftOrderService giftOrderService;
+    @Autowired
+    private WishBuilderService wishBuilderService;
 
 
     @Override
@@ -47,7 +53,7 @@ public class XmlWishProcessor implements WishProcessor {
             List<GiftOrder> orders = new ArrayList<>();
 
             getParsedWishes(reader).forEach(wish -> {
-                Child child = new Child(wish.firstName, wish.lastName);
+                Child child = new Child(wish.getFirstName(), wish.getLastName());
                 children.add(child);
                 orders.add(new GiftOrder(child, wish.getText(), wish.getDatetime()));
             });
@@ -66,6 +72,7 @@ public class XmlWishProcessor implements WishProcessor {
     private List<Wish> getParsedWishes(XMLStreamReader reader) throws Exception
     {
         List<Wish> result = new ArrayList<>();
+        List<Wish> savedWishes = wishBuilderService.build(childService.findAllChildren(), giftOrderService.findAllOders());
         String firstName = null, lastName = null, text = null;
         Long datetime = null;
         while (reader.hasNext()) {
@@ -82,87 +89,10 @@ public class XmlWishProcessor implements WishProcessor {
                 datetime = deliveryDate.toEpochMilli();
             } else if (event == XMLStreamConstants.END_ELEMENT && WISH_ELEMENT.equals(reader.getLocalName())) {
                 Wish wish = new Wish(firstName, lastName, text, datetime);
-                if (!result.contains(wish))
+                if (!savedWishes.contains(wish))
                     result.add(new Wish(firstName, lastName, text, datetime));
             }
         }
         return result;
     }
-
-    public class Wish {
-        private String firstName;
-        private String lastName;
-        private String text;
-        private Long datetime;
-
-        public Wish(String firstName, String lastName, String text, Long datetime)
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.text = text;
-            this.datetime = datetime;
-        }
-
-        public String getFirstName()
-        {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName)
-        {
-            this.firstName = firstName;
-        }
-
-        public String getLastName()
-        {
-            return lastName;
-        }
-
-        public void setLastName(String lastName)
-        {
-            this.lastName = lastName;
-        }
-
-        public String getText()
-        {
-            return text;
-        }
-
-        public void setText(String text)
-        {
-            this.text = text;
-        }
-
-        public Long getDatetime()
-        {
-            return datetime;
-        }
-
-        public void setDatetime(Long datetime)
-        {
-            this.datetime = datetime;
-        }
-
-        @Override
-        public int hashCode()
-        {
-            HashCodeBuilder builder = new HashCodeBuilder();
-            builder.append(this.firstName);
-            builder.append(this.lastName);
-            builder.append(this.text);
-            builder.append(this.datetime);
-            return builder.toHashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            Wish wish = (Wish) obj;
-            return this.firstName.equals(wish.getFirstName()) &&
-                    this.lastName.equals(wish.getLastName()) &&
-                    this.text.equals(wish.getText()) &&
-                    this.datetime.equals(wish.getDatetime());
-        }
-    }
-
 }
