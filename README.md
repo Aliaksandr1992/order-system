@@ -12,7 +12,7 @@ To run this project you need to go inside a root directory, open there terminal 
 
 Yo can use your own xml file with wishes, but it has to have a structure as described below
     ```xml
-        <wishes>
+        <wishes><br/>
             <wish>
                 <child>
                     <first-name>John</first-name>
